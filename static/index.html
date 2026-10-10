@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salary Predictor</title>
+  <meta name="description" content="Estimate a salary from years of experience.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <h1>What should your experience be paid?</h1>
+      <p>Set your years of experience and get a salary estimate from a model trained on real salary data.</p>
+    </header>
+
+    <div class="layout">
+      <section class="panel controls" aria-labelledby="input-title">
+        <h2 id="input-title">Your experience</h2>
+
+        <label class="field" for="years-number">Years of experience</label>
+        <div class="stepper">
+          <button type="button" id="dec" aria-label="Decrease by half a year">−</button>
+          <input id="years-number" type="number" inputmode="decimal" min="0" max="50" step="0.5" value="5">
+          <button type="button" id="inc" aria-label="Increase by half a year">+</button>
+        </div>
+        <input id="years-range" class="range" type="range" min="0" max="15" step="0.1" value="5" aria-label="Years of experience slider">
+        <p id="error" class="error" role="alert" hidden></p>
+
+        <div class="result" aria-live="polite">
+          <p class="result-label">Estimated yearly salary</p>
+          <p class="result-value" id="salary">—</p>
+          <p class="result-range" id="range">Likely range: —</p>
+          <p class="notice" id="notice" hidden></p>
+        </div>
+
+        <div class="presets" role="group" aria-label="Quick picks">
+          <button type="button" data-years="1">1 yr</button>
+          <button type="button" data-years="3">3 yrs</button>
+          <button type="button" data-years="5">5 yrs</button>
+          <button type="button" data-years="8">8 yrs</button>
+          <button type="button" data-years="12">12 yrs</button>
+        </div>
+      </section>
+
+      <section class="panel chart-panel" aria-labelledby="chart-title">
+        <div class="chart-head">
+          <h2 id="chart-title">How pay grows with experience</h2>
+          <p class="hint">Drag the marker or tap the chart.</p>
+        </div>
+        <div id="chart" class="chart" role="img" aria-label="Scatter plot of salary against years of experience with a trend line"></div>
+        <ul class="legend">
+          <li><span class="dot data"></span>People in the dataset</li>
+          <li><span class="line"></span>Model trend</li>
+          <li><span class="dot you"></span>Your estimate</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="panel about" aria-labelledby="about-title">
+      <h2 id="about-title">About the model</h2>
+      <dl id="stats" class="stats">
+        <div><dt>Model</dt><dd id="s-name">—</dd></div>
+        <div><dt>Training rows</dt><dd id="s-n">—</dd></div>
+        <div><dt>Accuracy (R²)</dt><dd id="s-r2">—</dd></div>
+        <div><dt>Typical error</dt><dd id="s-mae">—</dd></div>
+      </dl>
+      <p class="fine">Estimates are based on a small dataset of 35 people and only use years of experience. Treat them as a rough guide, not a job offer.</p>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
